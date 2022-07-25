@@ -42,15 +42,8 @@ app.post("/image/upload", upload.single("file"), (req, res) => {
     res.status(500).json({ message: e });
   }
 });
-app.post("/image/delete", (req, res) => {
-  try {
-    var filePath = `${__dirname}/images/${req.body.photo}`;
-    fs.unlinkSync(filePath);
-    res.status(200).json({ message: "done" });
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({ message: e });
-  }
+app.get("/", (req, res) => {
+  res.json({ message: "Server running" });
 });
 /* -------------------------------- database -------------------------------- */
 mongoose
