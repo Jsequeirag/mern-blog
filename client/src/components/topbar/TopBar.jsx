@@ -1,8 +1,13 @@
-import React from "react";
+import { React, useContext } from "react";
+import { Context } from "../../context/Context";
 import { Link } from "react-router-dom";
 import "./TopBar.css";
 export default function TopBar() {
-  const user = false;
+  const server = process.env.REACT_APP_SERVER;
+  const { user, dispatch } = useContext(Context);
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
   return (
     <div className="top">
       <div className="topLeft">
@@ -22,22 +27,14 @@ export default function TopBar() {
               HOME
             </Link>
           </li>
+
           <li className="topListItem">
             <Link
               className="link"
-              to="/about"
+              to="/Myposts"
               style={{ TextDecoration: "none", color: "inherit" }}
             >
-              ABOUT
-            </Link>
-          </li>
-          <li className="topListItem">
-            <Link
-              className="link"
-              to="/contact"
-              style={{ TextDecoration: "none", color: "inherit" }}
-            >
-              CONTACT
+              {user && "MY POSTS"}
             </Link>
           </li>
           <li className="topListItem">
@@ -54,6 +51,7 @@ export default function TopBar() {
               className="link"
               to="/logout"
               style={{ TextDecoration: "none", color: "inherit" }}
+              onClick={handleLogout}
             >
               {user && "LOGOUT"}
             </Link>
@@ -62,11 +60,9 @@ export default function TopBar() {
       </div>
       <div className="topRight">
         {user ? (
-          <img
-            className="topImg"
-            src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-          />
+          <Link to="settings">
+            <img className="topImg" src={server + user.profilePic} alt="" />
+          </Link>
         ) : (
           <ul className="topList">
             <li className="topListItem">

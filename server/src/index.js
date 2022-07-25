@@ -21,6 +21,7 @@ app.use("/category", categoryRoute);
 const postRoute = require("./routes/posts");
 app.use("/post", postRoute);
 const userRoute = require("./routes/users");
+const { env } = require("process");
 app.use("/user", userRoute);
 /* --------------------------------- multer --------------------------------- */
 const storage = multer.diskStorage({
@@ -56,7 +57,7 @@ mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     /* --------------------------------- server --------------------------------- */
-    app.listen("3001", () => {
+    app.listen(process - env.PORT || "3001", () => {
       console.log("server:3001");
     });
   })

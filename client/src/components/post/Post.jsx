@@ -1,28 +1,36 @@
 import React from "react";
 import "./Post.css";
-export default function Post() {
+import { Link } from "react-router-dom";
+
+export default function Post({ post }) {
+  const server = process.env.REACT_APP_SERVER;
+  console.log(post.photo);
   return (
     <div className="post">
-      <img
-        className="postImg"
-        src="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        alt=""
-      />
+      {post.photo && (
+        <img className="postImg" src={server + post.photo} alt="" />
+      )}
+
       <div className="postInfo">
         <div className="postCats">
-          <span className="postCat">Music</span>
-          <span className="postCat">Life</span>
+          {post.categories.map((category) => (
+            <span className="postCat"> {category} </span>
+          ))}
         </div>
-        <span className="postTitle">Lorem ipsum dolor</span>
+        <Link
+          to={`/post/${post._id}`}
+          style={{ textDecoration: "none", color: "black", marginTop: "15px" }}
+          state={{ nombre: "jose" }}
+        >
+          <span className="postTitle">{post.title}</span>
+        </Link>
+
         <hr />
-        <span className="postDate">1 hour ago</span>
+        <span className="postDate">
+          {new Date(post.createdAt).toDateString()}
+        </span>
       </div>
-      <p className="postDesc">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel at
-        perspiciatis earum minus quaerat commodi reprehenderit, nemo dicta
-        aspernatur praesentium eum rem totam sequi ratione sunt reiciendis
-        mollitia cumque asdasdasdasdasd asdasdsad.
-      </p>
+      <p className="postDesc">{post.desc}</p>
     </div>
   );
 }

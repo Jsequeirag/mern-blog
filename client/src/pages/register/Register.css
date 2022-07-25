@@ -53,3 +53,10 @@
   color: white;
   border-radius: 10px;
 }
+#message {
+  color: red;
+  background-color: lightcoral;
+  border-radius: 15px;
+  padding: 10px 15px;
+  text-align: center;
+}

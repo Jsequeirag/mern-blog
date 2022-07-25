@@ -53,3 +53,19 @@
   cursor: pointer;
   font-size: 16px;
 }
+.category-title {
+  font-family: "Varela Round", sans-serif;
+  color: rgb(60, 60, 60) !important;
+}
+.check-container {
+  font-size: 30px;
+  margin-left: 170px;
+}
+.checkbox {
+  margin-left: 20px;
+}
+label {
+  margin-left: 10px;
+  color: rgb(60, 60, 60) !important;
+  font-family: "Varela Round", sans-serif;
+}

@@ -9,6 +9,7 @@
   height: 280px;
   object-fit: cover;
   border-radius: 10px;
+  pointer-events: none;
 }
 .postInfo {
   display: flex;
