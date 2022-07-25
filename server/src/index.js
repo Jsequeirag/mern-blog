@@ -50,7 +50,7 @@ mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     /* --------------------------------- server --------------------------------- */
-    app.listen(process - env.PORT || "3001", () => {
+    app.listen(process - env.PORT || 3001, () => {
       console.log("server:3001");
     });
   })
