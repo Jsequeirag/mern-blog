@@ -8,13 +8,14 @@ export default function SinglePost() {
   const { user } = useContext(Context);
   const [post, setPost] = useState({});
   const { pathname } = useLocation();
+  const path = pathname.substring(1);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
   useEffect(() => {
     /* -------------------------------- get post -------------------------------- */
     const getPost = () => {
-      axios.get(`http://localhost:3001${pathname}`).then((res) => {
+      axios.get(`${server}${path}`).then((res) => {
         setPost(res.data);
         setTitle(res.data.title);
         setDesc(res.data.desc);
@@ -26,7 +27,7 @@ export default function SinglePost() {
   /* ------------------------------- delete post ------------------------------ */
   const handleDelete = async () => {
     await axios
-      .delete(`http://localhost:3001${pathname}`)
+      .delete(`${server}${path}`)
       .then((res) => {
         window.location.replace("/");
       })
@@ -38,7 +39,7 @@ export default function SinglePost() {
 
   const handleUpdate = async () => {
     await axios
-      .put(`http://localhost:3001${pathname}`, {
+      .put(`${server}${path}`, {
         title: title,
         desc: desc,
       })
@@ -55,7 +56,11 @@ export default function SinglePost() {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img src={server + post.photo} className="singlePostImg" alt="" />
+          <img
+            src={`${process.env.REACT_APP_SERVER_IMAGE}${post.photo}`}
+            className="singlePostImg"
+            alt=""
+          />
         )}
         {updateMode ? (
           <input

@@ -5,9 +5,10 @@ import "./Write.css";
 
 export default function Write() {
   const [title, setTitle] = useState("");
-  var [categories, setCategory] = useState(["sport"]);
+  var [categories, setCategory] = useState([]);
   const [desc, setDesc] = useState("");
   const [file, setfile] = useState("");
+  const [message, setMessage] = useState("");
   const { user } = useContext(Context);
   const addCheckValue = (value) => {
     const valueToLowerCase = value.toLowerCase();
@@ -21,6 +22,7 @@ export default function Write() {
       setCategory(categoryFilter);
     }
   };
+  /* --------------------------------- create --------------------------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = { username: user.username, title, desc, categories };
@@ -32,21 +34,26 @@ export default function Write() {
       data.append("file", file);
       newPost.photo = filename;
       await axios
-        .post("http://localhost:3001/image/upload", data)
+        .post(`${process.env.REACT_APP_SERVER_IMAGE}upload`, data)
         .then((res) => {
           console.log(res.data);
         })
         .catch((e) => {
-          console.log(e);
+          alert(e);
         });
     }
     await axios
-      .post("http://localhost:3001/post/", newPost)
+      .post(`${process.env.REACT_APP_SERVER}post`, newPost)
       .then((res) => {
-        window.location.replace("/post/" + res.data._id);
+        if (res.data.message) {
+          document.getElementById("myModal").style.display = "inline";
+          setMessage(res.data.message);
+        } else {
+          window.location.replace("/post/" + res.data._id);
+        }
       })
       .catch((e) => {
-        console.log(e.response.data);
+        alert(e);
       });
   };
   return (
@@ -86,8 +93,6 @@ export default function Write() {
         <div className="writeFormGroup check-container">
           <span className="category-title">Categories:</span>
           <input
-            className="checkbox"
-            checked
             type="checkbox"
             name="ossm"
             value="Sport"
@@ -136,6 +141,19 @@ export default function Write() {
           Publish
         </button>
       </form>
+      <div id="myModal" className="modal">
+        <div class="modal-content">
+          <p>{message}</p>{" "}
+          <button
+            className="modal-button"
+            onClick={() => {
+              document.getElementById("myModal").style.display = "none";
+            }}
+          >
+            ok
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

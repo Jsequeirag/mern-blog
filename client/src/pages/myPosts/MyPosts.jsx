@@ -10,7 +10,7 @@ export default function MyPosts() {
     const user = JSON.parse(localStorage.getItem("user")).username;
 
     await axios
-      .get("http://localhost:3001/post/myposts/" + `${user}`)
+      .get(`${process.env.REACT_APP_SERVER}post/myposts/${user}`)
       .then((res) => {
         setPosts(res.data);
       });

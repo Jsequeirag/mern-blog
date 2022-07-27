@@ -6,7 +6,7 @@ export default function SideBar() {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const getCategories = async () => {
-      await axios.get("http://localhost:3001/category").then((res) => {
+      await axios.get(`${process.env.REACT_APP_SERVER}category`).then((res) => {
         setCategories(res.data);
         console.log(res.data);
       });

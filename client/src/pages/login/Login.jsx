@@ -13,7 +13,7 @@ export default function Login() {
     dispatch({ type: "LOGIN_START" });
     try {
       await axios
-        .post("http://localhost:3001/auth/login", {
+        .post(`${process.env.REACT_APP_SERVER}auth/login`, {
           email: userRef.current.value,
           password: passwordRef.current.value,
         })

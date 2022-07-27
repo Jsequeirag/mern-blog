@@ -3,7 +3,7 @@ import "./Post.css";
 import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
-  const server = process.env.REACT_APP_SERVER;
+  const server = process.env.REACT_APP_SERVER_IMAGE;
   console.log(post.photo);
   return (
     <div className="post">

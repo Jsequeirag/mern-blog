@@ -11,9 +11,11 @@ export default function Home() {
   console.log(search);
   useEffect(() => {
     const getPosts = async () => {
-      await axios.get(`http://localhost:3001/post${search}`).then((res) => {
-        setPosts(res.data);
-      });
+      await axios
+        .get(`${process.env.REACT_APP_SERVER}post${search}`)
+        .then((res) => {
+          setPosts(res.data);
+        });
     };
     getPosts();
   }, [search]);

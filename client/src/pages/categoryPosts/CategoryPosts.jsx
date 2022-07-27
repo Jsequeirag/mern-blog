@@ -7,10 +7,11 @@ import SideBar from "../../components/sidebar/SideBar";
 import "./CategoryPosts.css";
 export default function CategoryPosts() {
   const { pathname } = useLocation();
+  const path = pathname.substring(1);
   const [posts, setPosts] = useState([]);
   const getPostsByCategory = async () => {
     await axios
-      .get("http://localhost:3001/post" + `${pathname}`)
+      .get(`${process.env.REACT_APP_SERVER}post/${path}`)
       .then((res) => {
         setPosts(res.data);
       });

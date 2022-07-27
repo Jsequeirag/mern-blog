@@ -3,7 +3,7 @@ import { Context } from "../../context/Context";
 import { Link } from "react-router-dom";
 import "./TopBar.css";
 export default function TopBar() {
-  const server = process.env.REACT_APP_SERVER;
+  const server = process.env.REACT_APP_SERVER_IMAGE;
   const { user, dispatch } = useContext(Context);
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
