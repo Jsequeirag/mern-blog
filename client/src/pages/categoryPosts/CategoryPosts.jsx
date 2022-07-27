@@ -18,7 +18,7 @@ export default function CategoryPosts() {
   };
   useEffect(() => {
     getPostsByCategory();
-  }, []);
+  });
   return (
     <>
       <Header title={"Category Posts"} />
