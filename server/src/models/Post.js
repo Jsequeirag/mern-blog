@@ -20,6 +20,7 @@ const postSchema = new Schema(
       type: Array,
       required: false,
       lowercase: true,
+      required: true,
     },
   },
   { timestamps: true, versionKey: false }

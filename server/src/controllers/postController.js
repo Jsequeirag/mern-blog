@@ -2,8 +2,14 @@ const postModel = require("../models/Post");
 const fs = require("fs");
 /* --------------------------------- create --------------------------------- */
 const createPost = async (req, res) => {
-  console.log(req.body);
   try {
+    console.log(req.body);
+    if (req.body.categories.length === 0) {
+      return res.status(200).json({ message: "Select a category" });
+    }
+    if (!req.body.photo) {
+      return res.status(200).json({ message: "Select a image" });
+    }
     const post = new postModel(req.body);
     await post.save();
     res.status(200).json(post);
@@ -83,6 +89,7 @@ const getPostByUsername = async (req, res) => {
     res.status(500).json(e);
   }
 };
+/* --------------------------- get posts by username -------------------------- */
 const getPostByCategory = async (req, res) => {
   console.log(req.params.categoryname);
   try {
